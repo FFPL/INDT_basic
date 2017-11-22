@@ -3,7 +3,7 @@ require "./vendor/autoload.php";
 
 use FFPL\Template;
 use FFPL\Router;
-use FFPL\Utils;
+
 $tpl = new Template("./templates/body.tpl");
 $routes = new Router();  
 
@@ -20,6 +20,7 @@ $routes->map("GET","/list",function($tpl){
 },"LIST");
 
 $routes->map("POST","/",function($tpl){
+    $time_start = microtime(true);
     $tpl->addFile("content","./templates/content.tpl");
     $authorsURL = 'https://bibliapp.herokuapp.com/api/authors';
     $booksURL = 'https://bibliapp.herokuapp.com/api/books';
@@ -37,7 +38,7 @@ $routes->map("POST","/",function($tpl){
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
-                curl_setopt($ch, CURLOPT_CAINFO,"./cacert.pem");    //Included certificate validator
+                curl_setopt($ch, CURLOPT_CAINFO,"./cacert.pem");    //Included certificate authorities for SSL validation
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
                     'Content-Type: application/json',                                                                                
                     'Content-Length: ' . strlen($data_string))                                                                       
@@ -64,12 +65,18 @@ $routes->map("POST","/",function($tpl){
                     }
                     $authors++;
                 }
+                $time_end = microtime(true);
+                $time = number_format($time_end - $time_start, 2);
                 $tpl->content = "
-                        <div class='container'>
-                            <div class='row mt'>
-                                <h4>
-                                    Imported {$authors} authors and {$books} books. Go to the <a href='/list'>list</a>
-                                </h4>
+                        <div id=\"headerwrap\">
+                            <div class='container'>
+                                <div class='row mt'>
+                                    <div class='col-lg-12'>
+                                        <h4>
+                                            Imported {$authors} authors and {$books} books, the import took {$time} seconds. <br />Go to the <a href='/list'>list</a>
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>";
             }else{

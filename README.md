@@ -1,27 +1,51 @@
 # Interface em PHP para importação de autores e livros na Library App
 
+Este repositório contém um uma interface web para a importação de autores e livros para a Library App API.
+
 Baseado no modelo de resposta para os metodos GET e POST de /api/authors
 a interface permite duplicação de dados em campos como `firstName` e `lastName` e segue por padrão os campos:
 
+`GET`
+
 ```json
 {
-    firstName: string (required),
-    lastName: string (required),
-    id: integer
+    "firstName": "string" ,
+    "lastName": "string",
+    "id": integer
+}
+```
+
+`POST`
+
+```json
+{
+    "firstName": "string" (required,not null),
+    "lastName": "string" (required,not null),
 }
 ```
 
 O mesmo vale para o modelo de respostas dos metodos GET e POST de /api/books
 
+`GET`
+
 ```json
 {
-    title:string (required),
-    id:integer,
-    authorId:integer (fk)(required),
+    "title":"string" ,
+    "id":integer,
+    "authorId":integer,
 }
 ```
 
-Sendo assim a sugestão para um arquivo em formato json que contemple ambos:
+`POST`
+
+```json
+{
+    "title":"string" (required),
+    "authorId":integer (fk,required),
+}
+```
+
+Sendo assim a sugestão para um arquivo em formato json para a importação que contemple ambos:
 
 ```json
 {
