@@ -2,6 +2,7 @@
 
 Este repositório contém um uma interface web para a importação de autores e livros para a Library App API.
 
+## Analise da API
 Baseado no modelo de resposta para os metodos GET e POST de /api/authors
 a interface permite duplicação de dados em campos como `firstName` e `lastName` e segue por padrão os campos:
 
@@ -49,18 +50,19 @@ Sendo assim a sugestão para um arquivo em formato json para a importação que 
 
 ```json
 {
-"author": [
-    {
-      "firstName": "string",
-      "lastName": "string",
-      "books": [{ "title": "string" },{ "title": "string" }, {...}]
-    },
-    {
-        "firstName": "string",
-        "lastName": "string",
-        "books": [{ "title": "string" }, {...}]
-    }
-  ]
+"author":
+    [
+        {
+            "firstName": "string",
+            "lastName": "string",
+            "books": [{ "title": "string" },{ "title": "string" }, {...}]
+        },
+        {
+            "firstName": "string",
+            "lastName": "string",
+            "books": [{ "title": "string" }, {...}]
+        }
+    ]
 }
 ```
 
@@ -68,6 +70,7 @@ Sendo assim a sugestão para um arquivo em formato json para a importação que 
 
 * PHP >= 5.6
 * php-curl extension
+* php-openssl extension
 * Composer
 
 ## Instalando
@@ -80,11 +83,11 @@ vá até a pasta do clone
 
 > $ cd INDT_basic
 
-execute o composer para instalar as dependencias
+execute o composer para instalar as dependências
 
 > $ composer install
 
-após o download das dependencias execute o comando
+após o download das dependências execute o comando
 
 >php -S localhost:777
 

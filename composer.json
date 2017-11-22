@@ -1,6 +1,7 @@
 {
     "require":{
-		"ffpl/utils":"dev-master",
-		"ext-curl":"*"
+			"ffpl/utils":"dev-master",
+			"ext-curl":"*",
+			"ext-openssl":"*"
 	}
 }

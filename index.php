@@ -1,4 +1,5 @@
 <?php
+ini_set('max_execution_time', '90'); 
 require "./vendor/autoload.php";
 
 use FFPL\Template;
@@ -11,12 +12,26 @@ $routes->map("GET","/list",function($tpl){
     $tpl->addFile("content","./templates/content.tpl");
     //Display the lastest authors
     $authors = json_decode(file_get_contents("https://bibliapp.herokuapp.com/api/authors"));
-    foreach($authors as $author){
-        $tpl->aName = $author->firstName;
-        $tpl->lName = $author->lastName;
-        $tpl->count = json_decode(file_get_contents("https://bibliapp.herokuapp.com/api/authors/{$author->id}/books/count"))->count;
-        $tpl->block("ROW");
+    if(is_array($authors) && !empty($authors[0])){
+        foreach($authors as $author){
+            $tpl->aName = $author->firstName;
+            $tpl->lName = $author->lastName;
+            $tpl->count = json_decode(file_get_contents("https://bibliapp.herokuapp.com/api/authors/{$author->id}/books/count"))->count;
+            $tpl->block("ROW");
+        }    
+    }else{
+        $tpl->content = "
+        <div class='container'>
+            <div class='row mt'>
+                <div class='col-lg-12'>
+                    <h4>
+                        Empty response
+                    </h4>
+                </div>
+            </div>
+        </div>";
     }
+    
 },"LIST");
 
 $routes->map("POST","/",function($tpl){
@@ -68,7 +83,6 @@ $routes->map("POST","/",function($tpl){
                 $time_end = microtime(true);
                 $time = number_format($time_end - $time_start, 2);
                 $tpl->content = "
-                        <div id=\"headerwrap\">
                             <div class='container'>
                                 <div class='row mt'>
                                     <div class='col-lg-12'>
@@ -77,8 +91,7 @@ $routes->map("POST","/",function($tpl){
                                         </h4>
                                     </div>
                                 </div>
-                            </div>
-                        </div>";
+                            </div>";
             }else{
                     $tpl->addFile("content","./templates/errors.tpl");
                     $tpl->block("EMPTY");
