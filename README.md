@@ -5,8 +5,8 @@ a interface permite duplicação de dados em campos como `firstName` e `lastName
 
 ```json
 {
-    firstName: string,
-    lastName: string,
+    firstName: string (required),
+    lastName: string (required),
     id: integer
 }
 ```
@@ -15,13 +15,13 @@ O mesmo vale para o modelo de respostas dos metodos GET e POST de /api/books
 
 ```json
 {
-    title:string,
+    title:string (required),
     id:integer,
-    authorId:integer,
+    authorId:integer (fk)(required),
 }
 ```
 
-Sendo assim a sugestão para um arquivo que contemple ambos segue:
+Sendo assim a sugestão para um arquivo em formato json que contemple ambos:
 
 ```json
 {
@@ -40,7 +40,6 @@ Sendo assim a sugestão para um arquivo que contemple ambos segue:
 }
 ```
 
-
 ## Dependências
 
 * PHP >= 5.6
@@ -49,13 +48,13 @@ Sendo assim a sugestão para um arquivo que contemple ambos segue:
 
 ## Instalando
 
-Primeiro faça o clone deste repositorio:
+Abra um terminal e faça o clone deste repositorio:
 
 >$ git clone https://github.com/FFPL/INDT_basic.git
 
-abra um terminal e vá até a pasta do clone
+vá até a pasta do clone
 
-> $ cd ~/INDT_basic
+> $ cd INDT_basic
 
 execute o composer para instalar as dependencias
 
@@ -68,3 +67,5 @@ após o download das dependencias execute o comando
 abra o navegador e digite na url
 
 >localhost:777
+
+Dentro da pasta do projeto existe um arquivo nomeado de [test.json](test.json) que pode ser utilizado como modelo para testes.

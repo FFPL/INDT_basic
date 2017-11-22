@@ -17,3 +17,28 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+        <div class="row mt">
+            <h2>An efficient way to send your authors and books to the cloud</h2>
+            <p>Please, follow this model to successful upload your authors and books.</p>
+            <pre>
+                    {
+                        "author": [
+                            {
+                                "firstName": "string",
+                                "lastName": "string",
+                                "books": [{ "title": "string" },{ "title": "string" }, {...}]
+                            },
+                            {
+                                "firstName": "string",
+                                "lastName": "string",
+                                "books": [{ "title": "string" }, {...}]
+                            }
+                        ]
+                    }
+                </pre>
+            
+        </div>
+    </div>
+    
